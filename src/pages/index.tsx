@@ -1,5 +1,6 @@
 import { FormGroup, TextField, Typography } from "@mui/material";
 import styles from "../../styles/Home.module.css";
+import Counter from "../components/Counter/Counter";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
           name="First Name"
         />
       </FormGroup>
+      <Counter defaultCount={0} description="My Counter" />
     </div>
   );
 }

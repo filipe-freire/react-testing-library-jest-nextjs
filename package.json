@@ -13,6 +13,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "husky": "^7.0.4",
     "next": "11.1.2",
