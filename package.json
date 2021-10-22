@@ -10,9 +10,11 @@
     "test": "jest",
     "test:ci": "jest --coverage --silent --ci",
     "prepare": "husky install",
+    "prettier": "prettier {*, src/*, src/**/*} --write --ignore-unknown",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "husky": "^7.0.4",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
