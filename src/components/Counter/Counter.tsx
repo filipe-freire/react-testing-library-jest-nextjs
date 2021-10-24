@@ -1,8 +1,8 @@
 import Increment from "@mui/icons-material/ArrowUpward";
 import Decrement from "@mui/icons-material/ArrowDownward";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Button, Input, InputLabel, Typography } from "@mui/material";
 
 interface CounterProps {
   description: string;
@@ -11,12 +11,33 @@ interface CounterProps {
 
 export default function Counter({ description, defaultCount }: CounterProps) {
   const [counter, setCounter] = useState(defaultCount);
+  const [chosenValue, setChosenValue] = useState(1);
+  const [bigEnough, setBigEnough] = useState(defaultCount >= 15);
+
+  useEffect(() => {
+    let id: NodeJS.Timeout;
+
+    if (counter >= 15) {
+      id = setTimeout(() => setBigEnough(true), 300);
+    }
+
+    return function cleanup() {
+      clearTimeout(id);
+    };
+  });
 
   return (
     <Stack direction="row" spacing={2} mt="2rem">
+      <InputLabel>
+        Value
+        <Input
+          value={chosenValue}
+          onChange={(evt) => setChosenValue(parseInt(evt.target.value) || 0)}
+        />
+      </InputLabel>
       <Button
-        aria-label="Increment the counter by 1"
-        onClick={() => setCounter(counter + 1)}
+        aria-label={`Increment the counter`}
+        onClick={() => setCounter(counter + chosenValue)}
         variant="contained"
         startIcon={<Increment />}
       >
@@ -27,13 +48,14 @@ export default function Counter({ description, defaultCount }: CounterProps) {
         {description}: {counter}{" "}
       </Typography>
       <Button
-        aria-label="Decrement the counter by 1"
-        onClick={() => setCounter(counter - 1)}
+        aria-label={`Decrement the counter`}
+        onClick={() => setCounter(counter - chosenValue)}
         variant="contained"
         endIcon={<Decrement />}
       >
         Decrement
       </Button>
+      {bigEnough ? null : <div>I am too small</div>}
     </Stack>
   );
 }
